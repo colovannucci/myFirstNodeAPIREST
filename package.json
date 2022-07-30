@@ -1,0 +1,24 @@
+{
+  "name": "firstnodeapi",
+  "version": "1.0.0",
+  "description": "My first nodejs API RESTful con Node.js y Express",
+  "main": "index.js",
+  "scripts": {
+    "start": "node .src/index.js",
+    "dev": "nodemon ./src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/colovannucci/myFirstNodeAPIREST.git"
+  },
+  "author": "Franco Vannucci",
+  "license": "MIT",
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "express": "^4.18.1"
+  }
+}
