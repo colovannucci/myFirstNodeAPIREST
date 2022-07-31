@@ -2,9 +2,9 @@
 'use strict'
 
 const mongoose = require('mongoose');
-const schema = mongoose.Schema;
+const Schema = mongoose.Schema;
 
-const ProductSchema = schema({
+const ProductSchema = Schema({
     name: String,
     picture: String,
     price: { type: Number, default: 0 },
