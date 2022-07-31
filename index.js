@@ -38,6 +38,7 @@ app.get('/api/products/:productId', (req, res) => {
     });
 });
 
+// Add a product
 app.post('/api/products', (req, res) => {
     /*
     console.log(req.body);
@@ -55,23 +56,44 @@ app.post('/api/products', (req, res) => {
     newProduct.description = req.body.description;
 
     // Store new product in DB
-    newProduct.save( (err, productStored) => {
+    newProduct.save( (err, productCreated) => {
         if (err) res.status(500).send( { message: `Error saving new product: ${err.message}` } );
 
-        res.status(201).send({ message: 'El producto se ha creado correctamente', product: productStored });
+        res.status(201).send({ message: 'El producto se ha creado correctamente', product: productCreated });
 
     });
 });
 
-app.put('/api/products', (req, res) => {
-    
+// Update a product
+app.put('/api/products/:productId', (req, res) => {
+    const productId = req.params.productId;
+    const updateInformation = req.body;
+
+    productModelDB.findByIdAndUpdate(productId, updateInformation, (err, productUpdated) => {
+        if (err) return res.status(500).send({ message: 'Error updating product' });
+        if (!productUpdated) return res.status(404).send({ message: 'Product not found' });
+
+        res.status(200).send({ message: 'El producto se ha actualizado correctamente' });
+    });
 });
 
+// Delete a product
 app.delete('/api/products/:productId', (req, res) => {
-    
+    const productId = req.params.productId;
+    // Search the product
+    productModelDB.findById(productId, (err, productFound) => {
+        if (err) return res.status(500).send({ message: `Error getting product ${err}`});
+        if (!productFound) return res.status(404).send({ message: `Product ${productId} not found` });
+        
+        productFound.remove(err => {
+            if (err) return res.status(500).send({message: `Error removing product: ${err}`});
+
+            res.status(200).send({ message: 'El producto se ha eliminado correctamente' });
+       });
+    });
 });
 
-// Si ninguna coincide manda esto
+// Si ninguna coincide ninguna route manda esto
 app.use('*', (req, res) => {
     res.status(404).send("Parece que te has perdido");
 });
