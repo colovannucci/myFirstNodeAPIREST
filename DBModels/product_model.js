@@ -1,7 +1,10 @@
+// Use restrictive JS mode to avoid silence errors of the project
+'use strict'
+
 const mongoose = require('mongoose');
 const schema = mongoose.Schema;
 
-const productSchema = schema({
+const ProductSchema = schema({
     name: String,
     picture: String,
     price: { type: Number, default: 0 },
@@ -10,4 +13,4 @@ const productSchema = schema({
 })
 
 // Export model
-module.exports = mongoose.model('Product', productSchema);
+module.exports = mongoose.model('Product', ProductSchema);
