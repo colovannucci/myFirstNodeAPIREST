@@ -1,7 +1,7 @@
 // Use restrictive JS mode to avoid silence errors of the project
 'use strict';
 
-const mongoose = require('moongoose');
+const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const bcrypt = require('bcrypt');
 
@@ -31,4 +31,4 @@ UserSchema.pre('save', (next) => {
     });
 });
 
-module.exports = mongoose.Schema('User', UserSchema);
+module.exports = mongoose.model('User', UserSchema);

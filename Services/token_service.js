@@ -26,7 +26,6 @@ function decodeToken(token) {
                     message: 'Expired token'
                 });
             }
-
             resolve(payload.sub);
         }catch (err) {
             reject({
@@ -35,9 +34,8 @@ function decodeToken(token) {
             })
         }
         
-
-
     });
+    return tokenDecoded;
 }
 
 module.exports = {
