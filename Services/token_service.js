@@ -15,4 +15,32 @@ function createToken(newUser){
     return jwtSimple.encode(payload, config.SECRET_TOKEN);
 }
 
-module.exports = createToken;
+function decodeToken(token) {
+    const tokenDecoded = new Promise((resolve, reject) => {
+        try {
+            const payload = jwt.decode(token, config.SECRET_TOKEN);
+            // Check if the expiration token has expired
+            if (payload.exp <= moment().unix()) {
+                reject({
+                    status: 401,
+                    message: 'Expired token'
+                });
+            }
+
+            resolve(payload.sub);
+        }catch (err) {
+            reject({
+                status: 500,
+                message: 'Failed to decode token'
+            })
+        }
+        
+
+
+    });
+}
+
+module.exports = {
+    createToken,
+    decodeToken
+}

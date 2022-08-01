@@ -1,9 +1,7 @@
 // Use restrictive JS mode to avoid silence errors of the project
 'use strict'
 
-const jwtSimple = require('jwt-simple');
-const moment = require('moment');
-const config = require('../configuration');
+const tokenService = require('../Services/token_service');
 
 function isAuthenticated( req, res, next){
     // Check if the request has a header called authorization
@@ -12,15 +10,17 @@ function isAuthenticated( req, res, next){
     }
     // Get the token from the headers, separating the Bearer from the token
     const userToken = req.headers.authorization.split(' ')[1];
-    const payload = jwt.decode(userToken, config.SECRET_TOKEN);
-
-    if (payload.exp <= moment().unix()) {
-        return res.status(401).send({ message: 'Token has expired' });
-    }
-
-    // Set the user to the request object
-    req.user = payload.sub;
-    next();
+    
+    tokenService.decodeToken(userToken)
+        .then(response => {
+            // Set the user to the request object
+            req.user = response;
+            next();
+        })
+        .catch(error => {
+            res.status(error.status).send(error.message);
+        })
+    
 }
 
 module.exports = isAuthenticated;

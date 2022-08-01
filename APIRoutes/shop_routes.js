@@ -19,7 +19,7 @@ apiShopRoutes.put('/products/:productId', productController.updateProduct);
 apiShopRoutes.delete('/products/:productId', productController.deleteProduct);
 
 // Private route
-apiShopRoutes.get('/private', authMiddleware.isAuthenticated, (req, res) => {
+apiShopRoutes.get('/private', authMiddleware, (req, res) => {
     res.send(200).send({ message: 'This is a private route' });
 });
 
