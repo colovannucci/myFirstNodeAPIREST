@@ -1,0 +1,79 @@
+###
+POST http://localhost:3001/shop/products
+content-type: application/json
+
+{
+    "name": "Colo",
+    "picture": "pic.jpg",
+    "price": 150,
+    "category": "computers",
+    "description": "Producto 2"
+}
+
+### GET product ID 62e67d926f9d14713debf9b5
+GET http://localhost:3001/shop/products/62e67d926f9d14713debf9b5
+content-type: application/json
+
+### GET all products
+GET http://localhost:3001/shop/products
+content-type: application/json
+
+###
+DELETE http://localhost:3001/shop/products/62e5c246ffb20d7273b63773
+content-type: application/json
+
+###
+PUT http://localhost:3001/shop/products/62e68b3e50f5d49a2db51e2c
+content-type: application/json
+
+{
+    "picture": "pictureModified.jpg"
+}
+
+### POST to create an user
+POST http://localhost:3001/shop/signup
+content-type: application/json
+
+{
+    "email": "test@email.com",
+    "displayName": "Test 1",
+    "password": "test 1"
+}
+
+### SIGNIN
+
+POST http://localhost:3001/shop/signin
+content-type: application/json
+Authorization: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MmU4NjgzNDczYjkzMGIzMTZkZDYyZDgiLCJpYXQiOjE2NTkzOTgxOTYsImV4cCI6MTY2MDYwNzc5Nn0.wedY0CwegjA6VamRs-aFJBDKwS_NKibkaIP_4rnSKQo'
+
+{
+    "email": "test@email.com",
+    "password": "test 1"
+}
+
+### private
+GET http://localhost:3001/shop/private
+Content-Type: application/json
+//Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NTkzOTgzMjMsImV4cCI6MTY2MDYwNzkyM30.YsP5SIBeLIsjPZRudgbngCwCdG_tBm5f-yVSohQe4Ho
+//Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MmU4NjgzNDczYjkzMGIzMTZkZDYyZDgiLCJpYXQiOjE2NTkzOTgxOTYsImV4cCI6MTY2MDYwNzc5Nn0.wedY0CwegjA6VamRs-aFJBDKwS_NKibkaIP_4rnSKQo
+
+### 
+GET http://localhost:3001/users
+
+###
+
+POST http://localhost:3001/users
+Content-Type: application/json
+
+{
+"name": "Colo", "password": "pass"
+}
+
+###
+
+POST http://localhost:3001/users/login
+Content-Type: application/json
+
+{
+"name": "Colo", "password": "pass"
+}
