@@ -4,7 +4,7 @@
 // Call MongoDB model
 const ProductModelDB = require('../DBModels/product_model');
 
-function getAllProducts (res) {
+function getAllProducts (req, res) {
     // Search for products without any query parameters
     ProductModelDB.find({}, (err, productsFound) => {
         if (err) return res.status(500).send({ message: `Error getting all products: ${err}` });

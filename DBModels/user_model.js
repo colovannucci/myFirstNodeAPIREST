@@ -14,6 +14,23 @@ const UserSchema = new Schema({
 });
 
 // Excecute before each user.save call in database
+UserSchema.pre("save", async function(done){
+  if (this.isModified("pasword")){
+    // Generate a salt, an array of random bytes
+    bcrypt.genSalt(10, (err, salt) => {
+      if (err) return next(err);
+      // Hash the password with the salt
+      bcrypt.hash(this.get("password"), salt, null, (err, hash) => {
+          if (err) return next(err);
+
+          this.set("password", hash);
+      });
+    });
+    done();
+  }
+});
+
+/*
 UserSchema.pre('save', (next) => {
     const user = this;
     // Check if the password is not modified
@@ -22,7 +39,7 @@ UserSchema.pre('save', (next) => {
     bcrypt.genSalt(10, (err, salt) => {
         if (err) return next(err);
         // Hash the password with the salt
-        bcrypt.hash(user.password, salt, (err, hash) => {
+        bcrypt.hash(user.password, salt, null, (err, hash) => {
             if (err) return next(err);
 
             user.password = hash;
@@ -30,5 +47,20 @@ UserSchema.pre('save', (next) => {
         })
     });
 });
+*/
+/*
+UserSchema.pre('save', function (next) {
+    if (!this.isModified('password')) return next()
+    bcrypt.genSalt(10, (err, salt) => {
+      if (err) return next(err)
+  
+      bcrypt.hash(this.password, salt, null, (err, hash) => {
+        if (err) return next(err)
+        this.password = hash
+        next()
+      })
+    })
+  })
+*/
 
 module.exports = mongoose.model('User', UserSchema);

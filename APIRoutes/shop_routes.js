@@ -5,7 +5,7 @@ const express = require('express');
 const apiShopRoutes = express.Router();
 const productController = require('../Controllers/product_controller');
 const userController = require('../Controllers/user_controller');
-const authMiddleware = require('../Middlewares/auth_middleware');
+const authMiddleware = require('../Middlewares/authentication_middleware');
 
 // Products routes
 // Get all products
@@ -21,7 +21,7 @@ apiShopRoutes.delete('/products/:productId', productController.deleteProduct);
 
 // Private routes
 apiShopRoutes.post('/signup', userController.signUp);
-apiShopRoutes.post('/signin', authMiddleware, userController.signIn);
+apiShopRoutes.post('/signin', userController.signIn);
 apiShopRoutes.get('/private', authMiddleware, (res) => {
     res.send(200).send({ message: 'This is a private route' });
 });
